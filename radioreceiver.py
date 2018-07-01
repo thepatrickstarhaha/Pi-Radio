@@ -82,42 +82,7 @@ def lcd_string(message,line):
     lcd_byte(ord(message[i]),LCD_CHR)
 
 def main():
-  # Main program block
-    
-  # Initialise display
-  fmchannel = 92.9
-  powerState = 1
-  lcd_init()
-  lcd_string(">Radio Receiver",LCD_LINE_1)
-  lcd_string(">"+str(fmchannel),LCD_LINE_2)
 
-  while True:
-
-    print GPIO.input(17)
-    if powerState == 1 and GPIO.input(17) == 0 and GPIO.input(12) == 0:
-      os.system ("sudo /home/pi/radiomute " + str(fmchannel))
-      powerState = 0
-      sleep(1)
-
-    elif powerState == 0 and GPIO.input(17) == 0 and GPIO.input(12) == 0:
-      os.system ("sudo /home/pi/radio " + str(fmchannel))
-      powerState = 1
-      sleep(1)
-      
-    elif powerState == 1 and GPIO.input(17) == 0:
-          fmchannel = fmchannel + 0.1
-          sleep(0.5)
-          lcd_string(">Radio Receiver",LCD_LINE_1)
-          lcd_string(">"+str(fmchannel),LCD_LINE_2)
-          os.system ("sudo /home/pi/radio " + str(fmchannel))
-          
-    elif powerState == 1 and GPIO.input(12) == 0:
-          fmchannel = fmchannel - 0.1
-          sleep(0.5)
-          lcd_string(">Radio Receiver",LCD_LINE_1)
-          lcd_string(">"+str(fmchannel),LCD_LINE_2)
-          os.system ("sudo /home/pi/radio " + str(fmchannel))
-    
 if __name__ == '__main__':
 
   try:
